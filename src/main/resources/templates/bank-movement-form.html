@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:insert="fragments/headerinc.html :: head">
+
+<title>Cuentas</title>
+
+</head>
+<body>
+	<div class="container">
+		<div th:insert="fragments/menu.html :: menu"></div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Movimiento Bancario</h3>
+			</div>
+			<div class="panel-body">
+				<form class="form-horizontal" th:object="${bankMovement}"
+					th:action="'/accounts/'+ *{account.id}+ '/bank-movement/save'" method="post">
+					<input type="hidden" th:field="*{id}" />
+					<input type="hidden" th:field="*{account.id}" />
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Tipo de cuenta</label>
+						<div class="col-sm-7">
+							<select class="form-control" th:field="*{accountType.id}">
+								<option value="0">Seleccionar Tipo</option>
+								<option th:each="accountType : ${accountTypes}"
+									th:value="${accountType.id}" th:text="${accountType.name}"></option>
+							</select> <span th:if="${#fields.hasErrors('accountType.id')}"
+								th:errors="*{accountType.id}" class="text-danger">
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Numero de cuenta</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control"
+								th:field="*{accountNumber}" /> <span
+								th:if="${#fields.hasErrors('accountNumber')}"
+								th:errors="*{accountNumber}" class="text-danger"></span>
+						</div>
+					</div>
+					<div>
+						<p th:text="${errorMessage}" class="col-sm-offset-2 text-danger"></p>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary">
+								<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+								Guardar
+							</button>
+							<a class="btn btn-default" th:href="'/customer/'+ *{customer.id} +'/accounts'"> <span
+								class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								Cancelar
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE  html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:insert="fragments/headerinc.html :: head">
+
+<title>Clientes</title>
+</head>
+<body>
+	<div class="container">
+
+		<div th:insert="fragments/menu.html :: menu"></div>
+		<h2>Movimientos bancarios</h2>
+		<div th:insert="fragments/feedback-message.html :: feedback-message"></div>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h4>Cliente</h4>
+				<span
+					th:text="${customer.firstName} +' '+ ${customer.lastName}"></span>
+			</div>
+		</div>
+
+
+		<a type="submit" class="btn btn-primary"
+			th:href="${'/customers/' + customer.id + '/bank-movement/new'}"> <span
+			class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Nuevo
+			Movimiento
+		</a> <br> <br>
+
+		<div th:if="${not #lists.isEmpty(bankMovements)}">
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Fecha</th>
+					<th>Numero de cuenta</th>
+					<th>Tipo movimiento</th>
+					<th>Monto</th>
+				</tr>
+				<tr th:each="bankMovement : ${bankMovements}">
+					<td th:text="${bankMovement.id}">Id</td>
+					<td th:text="${bankMovement.createDate}">Id</td>
+					<td th:text="${bankMovement.accountNumber}">Nombres</td>
+					<td th:text="${bankMovement.bankMovementType}">Apellidos</td>
+					<td th:text="${bankMovement.amount}">Apellidos</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

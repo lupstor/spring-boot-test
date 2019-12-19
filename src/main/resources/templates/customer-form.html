@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en"  th:insert="fragments/headerinc.html :: head">
+
+<title>Clientes</title>
+
+</head>
+<body>
+	<div class="container">
+		<div th:insert="fragments/menu.html :: menu"></div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Cliente</h3>
+			</div>
+			<div class="panel-body">		
+				<form class="form-horizontal" th:object="${customer}"
+					th:action="@{/customer}" method="post">
+					<input type="hidden" th:field="*{id}" />
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Nombres</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" th:field="*{firstName}" />
+							<span th:if="${#fields.hasErrors('firstName')}"
+								th:errors="*{firstName}" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Apellidos</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" th:field="*{lastName}" />
+							<span th:if="${#fields.hasErrors('lastName')}"
+								th:errors="*{lastName}" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Pais</label>
+						<div class="col-sm-7">
+							<select class="form-control" th:field="*{country.id}">
+								<option value="0">Seleccionar Pais</option>
+								<option th:each="country : ${countries}"
+									th:value="${country.id}" th:text="${country.name}"></option>
+							</select> <span th:if="${#fields.hasErrors('country.id')}"
+								th:errors="*{country.id}" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Fecha de nacimiento</label>
+						<div class="col-sm-7">
+							<input type="date" th:field="*{birthDate}" /> <span
+								th:if="${#fields.hasErrors('birthDate')}"
+								th:errors="*{birthDate}" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary">
+								<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+								Guardar
+							</button>
+							<a class="btn btn-default" href="/customers"> <span
+								class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								Cancelar
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

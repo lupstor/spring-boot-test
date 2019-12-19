@@ -1,0 +1,51 @@
+<!DOCTYPE  html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:insert="fragments/headerinc.html :: head">
+
+<title>Clientes</title>
+</head>
+<body>
+	<div class="container">
+
+		<div th:insert="fragments/menu.html :: menu"></div>
+		<h2>Listado de clientes</h2>
+		<div th:insert="fragments/feedback-message.html :: feedback-message"></div>
+
+		<a type="submit" class="btn btn-primary" href="/customer/new"> <span
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
+			cliente
+		</a> <br> <br>
+
+		<div th:if="${not #lists.isEmpty(customers)}">
+
+
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Pais</th>
+					<th>Fecha de nacimiento</th>
+					<th>Cuentas</th>
+					<th>Movimientos</th>
+					<th>Editar</th>
+					<th>Borrar</th>
+				</tr>
+				<tr th:each="customer : ${customers}">
+					<td th:text="${customer.id}">Id</td>
+					<td th:text="${customer.firstName}">Nombres</td>
+					<td th:text="${customer.lastName}">Apellidos</td>
+					<td th:text="${customer.country.name}">Pais</td>
+					<td th:text="${customer.birthDate}">Fecha de nacimiento</td>
+					<td><a th:href="${'/customer/' + customer.id + '/accounts'}">Cuentas</a></td>
+					<td><a th:href="${'/customers/' + customer.id + '/bank-movements'}">Movimientos</a></td>
+					<td><a th:href="${'/customer/edit/' + customer.id}">Editar</a></td>
+					<td><a th:href="${'/customer/delete/' + customer.id}">Borrar</a></td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+</body>
+</html>

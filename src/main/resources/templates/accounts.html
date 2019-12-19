@@ -1,0 +1,50 @@
+<!DOCTYPE  html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:insert="fragments/headerinc.html :: head">
+
+<title>Clientes</title>
+</head>
+<body>
+	<div class="container">
+
+		<div th:insert="fragments/menu.html :: menu"></div>
+		<h2>Listado de cuentas</h2>
+		<div th:insert="fragments/feedback-message.html :: feedback-message"></div>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h4>Cliente</h4>
+				<span th:text="${customer.firstName} +' '+ ${customer.lastName}"></span>
+				</div>
+		</div>
+
+		<a type="submit" class="btn btn-primary"
+			th:href="${'/customer/' + customer.id + '/account/new'}"> <span
+			class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Nueva
+			cuenta
+		</a> <br> <br>
+
+		<div th:if="${not #lists.isEmpty(accounts)}">
+
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Tipo</th>
+					<th>Numero de cuenta</th>
+					<th>Editar</th>
+					<th>Borrar</th>
+				</tr>
+				<tr th:each="account : ${accounts}">
+					<td th:text="${account.id}">Id</td>
+					<td th:text="${account.accountType.name}">Nombres</td>
+					<td th:text="${account.accountNumber}">Apellidos</td>
+					<td><a th:href="${'/account/edit/' + account.id}">Editar</a></td>
+					<td><a th:href="${'/account/delete/' + account.id}">Borrar</a></td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+</body>
+</html>

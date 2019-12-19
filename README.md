@@ -1,2 +1,1 @@
-# spring-boot-test
-Spring boot test
+# spring-jpa-test
